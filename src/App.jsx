@@ -13,7 +13,9 @@ export class App extends Component {
 		users: [],
 		loading: false,
 	};
-	async componentDidMount() {
+
+	//search users
+	searchUsers = async (searchQuery) => {
 		this.setState({ loading: true });
 
 		const github = axios.create({
@@ -21,28 +23,20 @@ export class App extends Component {
 			timeout: 1000,
 			headers: { Authorization: process.env.REACT_APP_GITHUB_TOKEN },
 		});
-
-		const response = await github.get("/search/users?q=Tom");
+		const response = await github.get(`/search/users?q=${searchQuery}`);
 
 		this.setState({
 			loading: false,
 			users: response.data.items,
 		});
-		// const response = await axios.get(
-		// 	`https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${REACT_APP_GITHUB_CLIENT_SECRET}`
-		// );
+	};
 
-		// this.setState({
-		// 	users: response.data,
-		// 	loading: false,
-		// });
-	}
 	render() {
 		return (
 			<div className='App'>
 				<Navbar />
 				<div className='container'>
-					<Search />
+					<Search searchUsers={this.searchUsers} />
 					<Users loading={this.state.loading} users={this.state.users} />
 				</div>
 			</div>
