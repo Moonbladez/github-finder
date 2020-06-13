@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import axios from "axios";
 
 import { Navbar } from "./components/layout/Navbar";
+import { Search } from "./components/users/Search";
 import { Users } from "./components/users/Users";
 
 import "./App.css";
@@ -14,7 +15,7 @@ export class App extends Component {
 	};
 	async componentDidMount() {
 		this.setState({ loading: true });
-		
+
 		const github = axios.create({
 			baseURL: "https://api.github.com",
 			timeout: 1000,
@@ -41,6 +42,7 @@ export class App extends Component {
 			<div className='App'>
 				<Navbar />
 				<div className='container'>
+					<Search />
 					<Users loading={this.state.loading} users={this.state.users} />
 				</div>
 			</div>
