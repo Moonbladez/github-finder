@@ -1,5 +1,7 @@
 import React from "react";
 
+
+
 import { UserItem } from "./UserItem";
 import { Spinner } from "../layout/Spinner";
 
@@ -16,7 +18,12 @@ export const Users = ({ users, loading }) => {
 		);
 	}
 };
-
+/* 
+Users.propTypes = {
+	users: propTypes.object.isRequired,
+	loading: propTypes.bool.isRequired,
+};
+ */
 const userStyle = {
 	display: "grid",
 	gridTemplateColumns: "repeat(3, 1fr)",
