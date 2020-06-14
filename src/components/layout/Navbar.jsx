@@ -6,9 +6,11 @@ import { FaGithubAlt } from "react-icons/fa";
 export const Navbar = ({ title }) => {
 	return (
 		<nav className='navbar bg-primary'>
-			<div>
+			<div className='brand'>
 				<FaGithubAlt />
-				<h1>{title}</h1>
+				<h1>
+					<Link to='/'>{title}</Link>
+				</h1>
 			</div>
 			<ul>
 				<li>

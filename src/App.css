@@ -426,3 +426,13 @@ table th {
     justify-content: center;
   }
 }
+
+.brand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.brand svg {
+  font-size: 2rem;
+}
