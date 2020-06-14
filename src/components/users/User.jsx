@@ -3,17 +3,22 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 import { RiExternalLinkLine } from "react-icons/ri";
+
+import { Repos } from "../repos/Repos";
 import { Spinner } from "../../images/spinner.gif";
 
 export class User extends Component {
 	componentDidMount() {
 		this.props.getUser(this.props.match.params.login);
+		this.props.getRepos(this.props.match.params.login);
 	}
 
 	static propTypes = {
 		loading: PropTypes.bool,
 		user: PropTypes.object.isRequired,
+		repos: PropTypes.array.isRequired,
 		getUser: PropTypes.func.isRequired,
+		getRepos: PropTypes.func.isRequired,
 	};
 	render() {
 		const {
@@ -32,8 +37,7 @@ export class User extends Component {
 			company,
 		} = this.props.user;
 
-		const { loading } = this.props;
-
+		const { loading, repos } = this.props;
 		return (
 			<div>
 				<Link to='/' className='btn btn-light'>
@@ -58,7 +62,7 @@ export class User extends Component {
 								{bio}
 							</>
 						)}
-						<a href={html_url} className='btn btn-dark my-1'>
+						<a href={html_url} className='btn btn-dark my-1 btn-block'>
 							visit github profile
 						</a>
 						<ul>
@@ -98,6 +102,7 @@ export class User extends Component {
 					</div>
 					<div className='badge badge-primary'>gists: {public_gists}</div>
 				</div>
+				<Repos repos={repos} />
 			</div>
 		);
 	}
