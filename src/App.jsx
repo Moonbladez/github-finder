@@ -20,21 +20,6 @@ export const App = () => {
 	const [loading, setLoading] = useState(false);
 	const [alert, setAlert] = useState(null);
 
-	//search users
-	const searchUsers = async (searchQuery) => {
-		setLoading(true);
-
-		const github = axios.create({
-			baseURL: "https://api.github.com",
-			timeout: 1000,
-			headers: { Authorization: process.env.REACT_APP_GITHUB_TOKEN },
-		});
-		const response = await github.get(`/search/users?q=${searchQuery}`);
-
-		setUsers(response.data.items);
-		setLoading(false);
-	};
-
 	//get single github user
 	const getUser = async (username) => {
 		setLoading(true);
@@ -92,7 +77,6 @@ export const App = () => {
 								render={(props) => (
 									<>
 										<Search
-											searchUsers={searchUsers}
 											clearUsers={clearUsers}
 											showClearButton={users.length > 0 ? true : false}
 											setAlert={showAlert}
