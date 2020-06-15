@@ -1,12 +1,15 @@
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
+import React, { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 import { RiExternalLinkLine } from "react-icons/ri";
+import { GithubContext } from "../../context/github/githubContext";
 
 import { Repos } from "../repos/Repos";
 
-export const User = ({ user, getUser, getRepos, repos, match }) => {
+export const User = ({ match }) => {
+	const githubContext = useContext(GithubContext);
+	const { getUser, loading, user, repos, getRepos } = githubContext;
+
 	useEffect(() => {
 		getUser(match.params.login);
 		getRepos(match.params.login);
@@ -94,12 +97,4 @@ export const User = ({ user, getUser, getRepos, repos, match }) => {
 			<Repos repos={repos} />
 		</div>
 	);
-};
-
-User.propTypes = {
-	loading: PropTypes.bool,
-	user: PropTypes.object.isRequired,
-	repos: PropTypes.array.isRequired,
-	getUser: PropTypes.func.isRequired,
-	getRepos: PropTypes.func.isRequired,
 };

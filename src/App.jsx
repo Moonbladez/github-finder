@@ -1,57 +1,17 @@
 import React, { useState } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import axios from "axios";
-
 import { Navbar } from "./components/layout/Navbar";
 import { Alert } from "./components/layout/Alert";
 import { Search } from "./components/users/Search";
 import { Users } from "./components/users/Users";
 import { User } from "./components/users/User";
 import { About } from "./components/pages/About";
-
 import { GithubState } from "./context/github/GithubState";
 
 import "./App.css";
 
 export const App = () => {
-	const [users, setUsers] = useState([]);
-	const [user, setUser] = useState({});
-	const [repos, setRepos] = useState([]);
-	const [loading, setLoading] = useState(false);
 	const [alert, setAlert] = useState(null);
-
-	//get single github user
-	const getUser = async (username) => {
-		setLoading(true);
-
-		const github = axios.create({
-			baseURL: "https://api.github.com",
-			timeout: 1000,
-			headers: { Authorization: process.env.REACT_APP_GITHUB_TOKEN },
-		});
-		const response = await github.get(`/users/${username}?`);
-
-		setUser(response.data);
-		setLoading(false);
-	};
-
-	//get users repos
-	const getRepos = async (username) => {
-		setLoading(true);
-		const github = axios.create({
-			baseURL: "https://api.github.com",
-			timeout: 1000,
-			headers: { Authorization: process.env.REACT_APP_GITHUB_TOKEN },
-		});
-		const response = await github.get(
-			`/users/${username}/repos?per_page=5&sort=created:asc?`
-		);
-
-		setRepos(response.data);
-		setLoading(false);
-	};
-
-
 
 	const showAlert = (message, type) => {
 		setAlert({ message: message, type: type });
@@ -78,20 +38,7 @@ export const App = () => {
 								)}
 							/>
 							<Route exact path='/about' component={About} />
-							<Route
-								exact
-								path='/user/:login'
-								render={(props) => (
-									<User
-										{...props}
-										getUser={getUser}
-										getRepos={getRepos}
-										user={user}
-										repos={repos}
-										loading={loading}
-									/>
-								)}
-							/>
+							<Route exact path='/user/:login' component={User} />
 						</Switch>
 					</div>
 				</div>

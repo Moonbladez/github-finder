@@ -39,9 +39,41 @@ export const GithubState = (props) => {
 		});
 	};
 
-	//get users
+	//get single github user
+	const getUser = async (username) => {
+		setLoading();
 
-	//get repos
+		const github = axios.create({
+			baseURL: "https://api.github.com",
+			timeout: 1000,
+			headers: { Authorization: process.env.REACT_APP_GITHUB_TOKEN },
+		});
+
+		const response = await github.get(`/users/${username}?`);
+
+		dispatch({
+			type: GET_USER,
+			payload: response.data,
+		});
+	};
+
+	//get users repos
+	const getRepos = async (username) => {
+		setLoading();
+		const github = axios.create({
+			baseURL: "https://api.github.com",
+			timeout: 1000,
+			headers: { Authorization: process.env.REACT_APP_GITHUB_TOKEN },
+		});
+		const response = await github.get(
+			`/users/${username}/repos?per_page=5&sort=created:asc?`
+		);
+
+		dispatch({
+			type: GET_REPOS,
+			payload: response.data,
+		});
+	};
 
 	//clear list of users
 	const clearUsers = () => dispatch({ type: CLEAR_USERS });
@@ -60,6 +92,8 @@ export const GithubState = (props) => {
 				loading: state.loading,
 				searchUsers,
 				clearUsers,
+				getUser,
+				getRepos,
 			}}
 		>
 			{props.children}
