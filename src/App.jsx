@@ -51,11 +51,7 @@ export const App = () => {
 		setLoading(false);
 	};
 
-	//clear list of users
-	const clearUsers = () => {
-		setUsers([]);
-		setLoading(false);
-	};
+
 
 	const showAlert = (message, type) => {
 		setAlert({ message: message, type: type });
@@ -76,12 +72,8 @@ export const App = () => {
 								path='/'
 								render={(props) => (
 									<>
-										<Search
-											clearUsers={clearUsers}
-											showClearButton={users.length > 0 ? true : false}
-											setAlert={showAlert}
-										/>
-										<Users loading={loading} users={users} />
+										<Search setAlert={showAlert} />
+										<Users />
 									</>
 								)}
 							/>
