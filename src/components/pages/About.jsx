@@ -5,7 +5,7 @@ export const About = () => {
 		<div>
 			<h1>About This Application</h1>
 			<p>An application to search Github users</p>
-			<p>Version 1.0</p>
+			<p>Version 1.1</p>
 		</div>
 	);
 };
