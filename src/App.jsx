@@ -87,7 +87,6 @@ export class App extends Component {
 	};
 
 	render() {
-		console.log(this.state);
 		const { users, loading, user, repos } = this.state;
 		return (
 			<BrowserRouter>
